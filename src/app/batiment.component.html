@@ -1,0 +1,23 @@
+<div class="col-md-6 mx-auto" style="text-align:center">
+    <label>Bâtiments</label>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th *ngFor="let colonne of tableBatiment.rows; let i = index">{{colonne}}</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tr *ngFor="let content of contents; let i = index">
+          <td>{{content.id}}</td>
+          <td>{{content.nom}}</td>
+          <td>{{content.date_installation}}</td>
+          <td><button type="button" rel="tooltip"  class="btn btn-danger btn-xs">
+            <i class="">Edit</i>
+          </button>
+          <button type="button" rel="tooltip" class="btn btn-info btn-xs">
+            <i class="">Delete</i>
+          </button></td>
+        </tr>
+    </table>
+    <button class="btn btn-success">Ajouter une entrée</button>
+</div>
