@@ -4,14 +4,22 @@
         <thead>
           <tr>
             <th *ngFor="let colonne of tableMaintenance.rows; let i = index">{{colonne}}</th>
+            <th>Action</th>
           </tr>
         </thead>
-        <tr>
-          <td>123</td>
-          <td>Space Mountain</td>
-          <td>12/01/1993</td>
-          <td>123</td>
-          <td>Space Mountain</td>
+        <tr *ngFor="let content of contents; let i = index">
+          <td>{{content.id}}</td>
+          <td>{{content.date_past}}</td>
+          <td>{{content.date_next}}</td>
+          <td>{{content.id_attraction}}</td>
+          <td>{{content.id_personnel}}</td>
+          <td><button type="button" rel="tooltip"  class="btn btn-danger btn-xs">
+            <i class="">Edit</i>
+          </button>
+          <button type="button" rel="tooltip" class="btn btn-info btn-xs">
+            <i class="">Delete</i>
+          </button></td>
         </tr>
     </table>
+    <button class="btn btn-success">Ajouter une entrée</button>
 </div>
