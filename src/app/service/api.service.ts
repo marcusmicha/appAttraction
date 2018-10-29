@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable()
@@ -16,4 +17,10 @@ export class ApiService {
           return res;
       }));
     }
+  
+  post(asset, body): Observable<any> {
+    return this.http.post(this.url + '/' + asset,
+      JSON.stringify(body)
+    ).pipe();
+  }
 }
