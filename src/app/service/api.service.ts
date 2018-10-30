@@ -19,8 +19,7 @@ export class ApiService {
     }
   
   post(asset, body): Observable<any> {
-    return this.http.post(this.url + '/' + asset,
-      JSON.stringify(body)
-    ).pipe();
+    return this.http.post(this.url + '/' + asset, body)
+    .pipe();
   }
 }

@@ -19,7 +19,5 @@ export class AppComponent {
   ) { }
 
   ngOnInit() {
-    this.allData = this.route.snapshot.data['allData'];
-    console.log(this.route.snapshot.data['allData']);
   }
 }
