@@ -30,6 +30,7 @@ export class AttractionComponent {
   addContent(){
     let content = "attraction";
     swal({
+      showCloseButton: true,
       title: 'Ajouter une ' + content,
       html:
       '<input id="swal-input2" class="swal2-input" placeholder="Nom" required>' +
@@ -55,10 +56,41 @@ export class AttractionComponent {
         }
         console.log("newContent");
         console.log(newContent);
-        this.apiService.post("attraction", newContent).subscribe((res) => { 
+        this.apiService.post("attraction", newContent)
+        .subscribe((res) => { 
           this.apiService.getAll('attraction').subscribe(res => this.contents = res);
+          swal(
+            'Créé !!',
+            'Votre nouvelle attraction a été créee.',
+            'success'
+          )
         });
       })
+  }
+
+  deleteContent(content){
+    swal({
+      title: 'Êtes vous sûr de vouloir supprimer l\'attraction ' + content.nom + ' ?',
+      text: "Vous ne serez pas en mesure de revenir en arrière !",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Oui, supprimer l\'attraction',
+    }).then((result) => {
+      if (result.value) {
+        this.apiService.delete("attraction", content.id)
+        .subscribe(res => {
+          this.apiService.getAll('attraction').subscribe(res => this.contents = res);
+          swal(
+            'Supprimée!',
+            'L\'attraction suivante a été supprimée : ' + content.nom,
+            'success'
+          )
+        })
+      }
+    })
   }
 }
 

@@ -22,4 +22,9 @@ export class ApiService {
     return this.http.post(this.url + '/' + asset, body)
     .pipe();
   }
+
+  delete(asset, id): Observable<any> {
+    return this.http.delete(this.url + '/' + asset + '/' + id)
+    .pipe();
+  }
 }
