@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from './service/api.service';
-import swal from 'sweetalert2'
+import swal from 'sweetalert2';
 
 declare interface table {
   rows: any[];
@@ -32,16 +32,16 @@ export class AttractionComponent {
       showCloseButton: true,
       title: 'Ajouter une attraction',
       html:
-      '<input id="swal-input2" class="swal2-input" placeholder="Nom" required>' +
-      '<input id="swal-input3" class="swal2-input" placeholder="Date d\'installation" required>'+
-      '<input id="swal-input4" class="swal2-input" placeholder="Prix de l\'entrée" required>',
+      '<input id="swal-input1" class="swal2-input" placeholder="Nom" required>' +
+      '<input id="swal-input2" class="swal2-input" placeholder="Date d\'installation" required>'+
+      '<input id="swal-input3" class="swal2-input" placeholder="Prix de l\'entrée" required>',
        preConfirm: function() {
          return new Promise(function(resolve) {
          if (true) {
           resolve([
+            (<HTMLInputElement>document.getElementById('swal-input1')).value,
             (<HTMLInputElement>document.getElementById('swal-input2')).value,
             (<HTMLInputElement>document.getElementById('swal-input3')).value,
-            (<HTMLInputElement>document.getElementById('swal-input4')).value,
           ]);
          }
         });
@@ -60,7 +60,48 @@ export class AttractionComponent {
           this.apiService.getAll('attraction').subscribe(res => this.contents = res);
           swal(
             'Créé !!',
-            'Votre nouvelle attraction a été créee.',
+            'Votre nouvelle attraction a été créée.',
+            'success'
+          )
+        });
+      })
+  }
+
+  updateContent(content){
+    swal({
+      showCloseButton: true,
+      title: 'Modifier une attraction',
+      html:
+      '<input id="swal-input1" class="swal2-input" placeholder="Nom" required value="'+content.nom+'">' +
+      '<input id="swal-input2" class="swal2-input" placeholder="Date d\'installation" value="'+content.date_installation+'" required>'+
+      '<input id="swal-input3" class="swal2-input" placeholder="Prix de l\'entrée" value="'+content.prix+'" required>',
+       preConfirm: function() {
+         return new Promise(function(resolve) {
+         if (true) {
+          resolve([
+            (<HTMLInputElement>document.getElementById('swal-input1')).value,
+            (<HTMLInputElement>document.getElementById('swal-input2')).value,
+            (<HTMLInputElement>document.getElementById('swal-input3')).value,
+          ]);
+         }
+        });
+       }
+       }).then(result => {
+         console.log(result);
+         content = {
+          id: content.id,
+          nom: result.value[0],
+          date_installation: result.value[1],
+          prix: result.value[2]
+        }
+        console.log("newContent");
+        console.log(content);
+        this.apiService.put("attraction", content)
+        .subscribe((res) => { 
+          this.apiService.getAll('attraction').subscribe(res => this.contents = res);
+          swal(
+            'Modifiée!',
+            'L\'attraction suivante a été modifiée : ' + content.nom,
             'success'
           )
         });
@@ -100,45 +141,5 @@ export class AttractionComponent {
     })
   }
 
-  updateContent(content){
-    swal({
-      showCloseButton: true,
-      title: 'Modifier une attraction',
-      html:
-      '<input id="swal-input2" class="swal2-input" placeholder="Nom" required value="'+content.nom+'">' +
-      '<input id="swal-input3" class="swal2-input" placeholder="Date d\'installation" value="'+content.date_installation+'" required>'+
-      '<input id="swal-input4" class="swal2-input" placeholder="Prix de l\'entrée" value="'+content.prix+'" required>',
-       preConfirm: function() {
-         return new Promise(function(resolve) {
-         if (true) {
-          resolve([
-            (<HTMLInputElement>document.getElementById('swal-input2')).value,
-            (<HTMLInputElement>document.getElementById('swal-input3')).value,
-            (<HTMLInputElement>document.getElementById('swal-input4')).value,
-          ]);
-         }
-        });
-       }
-       }).then(result => {
-         console.log(result);
-         content = {
-          id: content.id,
-          nom: result.value[0],
-          date_installation: result.value[1],
-          prix: result.value[2]
-        }
-        console.log("newContent");
-        console.log(content);
-        this.apiService.put("attraction", content)
-        .subscribe((res) => { 
-          this.apiService.getAll('attraction').subscribe(res => this.contents = res);
-          swal(
-            'Modifiée!',
-            'L\'attraction suivante a été supprimée : ' + content.nom,
-            'success'
-          )
-        });
-      })
-  }
 }
 

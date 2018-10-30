@@ -11,13 +11,13 @@
           <td>{{content.id}}</td>
           <td>{{content.nom}}</td>
           <td>{{content.date_installation}}</td>
-          <td><button type="button" rel="tooltip"  class="btn btn-danger btn-xs">
+          <td><button (click)="updateContent(content)" style="margin-right: 5%" type="button" rel="tooltip"  class="btn btn-info btn-xs">
             <i class="">Edit</i>
           </button>
-          <button type="button" rel="tooltip" class="btn btn-info btn-xs">
+          <button (click)="deleteContent(content)" type="button" rel="tooltip" class="btn btn-danger btn-xs">
             <i class="">Delete</i>
           </button></td>
         </tr>
     </table>
-    <button class="btn btn-success">Ajouter une entrée</button>
+    <button (click)="addContent()" class="btn btn-success">Ajouter une entrée</button>
 </div>
