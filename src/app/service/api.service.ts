@@ -23,6 +23,11 @@ export class ApiService {
     .pipe();
   }
 
+  put(asset, body): Observable<any> {
+    return this.http.put(this.url + '/' + asset + '/' + body.id, body)
+    .pipe();
+  }
+
   delete(asset, id): Observable<any> {
     return this.http.delete(this.url + '/' + asset + '/' + id)
     .pipe();

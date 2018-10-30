@@ -12,7 +12,7 @@
           <td>{{content.nom}}</td>
           <td>{{content.date_installation}}</td> 
           <td>{{content.prix}}</td>
-          <td><button  type="button" rel="tooltip"  class="btn btn-info btn-xs">
+          <td><button (click)="updateContent(content)" style="margin-right: 5%"  type="button" rel="tooltip"  class="btn btn-info btn-xs">
             <i class="">Edit</i>
           </button>
           <button (click)="deleteContent(content)" type="button" rel="tooltip" class="btn btn-danger btn-xs">
